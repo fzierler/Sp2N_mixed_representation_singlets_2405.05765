@@ -39,7 +39,6 @@ for (i,name) in enumerate(ensembles)
     scatter!(plt,m[1,1:tmax2[i]], yerr=Δm[1,1:tmax2[i]],marker=:diamond,label=L"$m _{\rm eff}: a $")
     scatter!(plt,m[2,1:tmax1[i]], yerr=Δm[2,1:tmax1[i]],marker=:pentagon,label=L"$m _{\rm eff}: \eta'$")
     plot!(plt,ylims=(0.2,1))
-    display(plt)
 
     # path for Plots
     path = "./plots/singlet_meff/"

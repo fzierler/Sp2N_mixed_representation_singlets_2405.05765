@@ -32,4 +32,3 @@ scatter!(plt1,d0,yerr=Δd0,label="disc (0)";markershape)
 for i in eachindex(Nsmear)
     scatter!(plt1,d[:,i] ,yerr=Δd[:,i] ,label="disc ($i)";markershape)
 end
-display(plt1)

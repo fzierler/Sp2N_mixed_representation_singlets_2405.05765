@@ -39,8 +39,6 @@ for (i,name) in enumerate(names)
     plt = scatter(c,yerr=Δc,label="data: AWI quark mass")
     plot!(plt,tmin:tmax,m*ones(tmax-tmin+1),ribbon=Δm,label="fit")
     plot!(plt,xlims=(5,T-5),ylims=(m - 5Δm,m + 5Δm))
-    #display(plt)
-
 
     T, L = h5read(file,"lattice")[1:2]
     beta = h5read(file,"beta")[]

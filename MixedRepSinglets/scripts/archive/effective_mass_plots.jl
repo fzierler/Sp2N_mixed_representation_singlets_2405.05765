@@ -37,7 +37,6 @@ function overview_plot(c,Δc,ev,Δev,m,Δm;title="effective mass",s=(480, 3*200)
         ispath(savedir) || mkpath(savedir)
         savefig(plt,joinpath(savedir,title*".pdf"))
     end
-    display(plt)
     return plt
 end
 

@@ -52,7 +52,6 @@ meff_APE, Δmeff_APE = implicit_meff_jackknife(corr_new[1,1,:,:]';sign)
 plt1 = plot(yscale=:log10)
 scatter!(plt1,c3       ,yerr=Δc3       , label ="N=0 (with APE)")
 scatter!(plt1,c1[1,1,:],yerr=Δc1[1,1,:], label ="published data")
-display(plt1)
 
 # Plot effective mass
 range  = 2:10 
@@ -65,4 +64,3 @@ scatter!(plt2,range, meff_new[Ns,range],yerr=Δmeff_new[Ns,range], label="GEVP N
 scatter!(plt2,range, meff_old[range,],yerr=Δmeff_old[range,], label="no smearing")
 scatter!(plt2,range, meff_APE[range,],yerr=Δmeff_APE[range,], label="only APE")
 hspan!(plt2,[0.604,0.616],alpha=0.5,label="published result")
-display(plt2)
