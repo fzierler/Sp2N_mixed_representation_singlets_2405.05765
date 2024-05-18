@@ -1,0 +1,9 @@
+*.pdf
+*.h5
+*.hdf5
+*.csv
+*.tex
+*.code-workspace
+input/*
+!input/parameters
+!input/parameters/*.csv
