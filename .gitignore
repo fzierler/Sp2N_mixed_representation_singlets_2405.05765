@@ -6,3 +6,4 @@
 *.code-workspace
 input/*
 !input/hdf5data
+!input/gradient_flow_results
