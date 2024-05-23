@@ -3,13 +3,20 @@ This repository contains the code used to prepare the plots and results included
 
 ## Instructions: Running the analysis
 - Install required dependencies (see below)
-- Download the hdf5-file `singlets_smeared.hdf5` from the [Zenodo data release]() and place it in `input/hdf5data` (the directory can be modified in `MixedRepSinglets/main.jl`)
+- Download the hdf5-file `singlets_smeared.hdf5` from the [Zenodo data release]() and place it in `input/hdf5data`
+- Download the archive `parameters.zip`, decompres it, and place the directory in `input/`
 - Run the analysis using `bash main.sh` within the top level directory
 - The figures and tables can then be found in
     - `output/figures/`
     - `output/tables/`
 
-- If you want to start from the raw logs the variable `start_from_logs` in the file `MixedRepSinglets/main.jl` needs to be set to `true` and the path to the directory containing the decompressed raw logs needs to be provided. Note, that the raw logs are compressed on Zenodo. The variable `start_from_logs` is set to `false` by default.
+- If you want to start from the raw logs:
+    - Download `logfiles_compressed.zip` from Zenodo
+    - Decompress the raw log files by executing `decompress.sh` (Note, that just unzipping the archive is not sufficient since the raw log files are zstd-compressed)
+    - Place the decompressed directory in `input`
+    - Remove the file `input/hdf5data/singlets_smeared.hdf5` if it exists
+    - Download the archive `parameters.zip`, decompres it, and place the directory in `input/`
+    - Run the analysis using `bash main.sh` within the top level directory
 
 In order to respect the dataset size limit on Zenodo, only the relevant channels (γ5, γ0γ5, γi) are written to the hdf5 file. In order to write all channels to the hdf5 file, set the variable 'write_all_channels_to_hdf5' in the file `MixedRepSinglets/main.jl` to 'true'.
 
@@ -25,4 +32,5 @@ The plots are made using [Plots.jl](https://zenodo.org/record/7994271) via the [
 - Python 3.8 (see `requirements.txt` for the required packages)
 - julia 1.10
 - LaTeX (including PGFPlots)
+- zstd (for decompressing the raw log files)
 

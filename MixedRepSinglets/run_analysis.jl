@@ -28,7 +28,7 @@ plotpath       = joinpath(output_path,"plots")
 parameterfile      = joinpath(paramter_path,"parameters_smeared.csv")
 parameters_fitting = joinpath(paramter_path,"parameters_corrfitter.csv")
 parameters_gevp    = joinpath(paramter_path,"parameters_gevp.csv")
-gradient_flow_results = joinpath(paramter_path,"gradient_flow_results.csv")
+gradient_flow_results = joinpath(gradientflowdir,"gradient_flow_results.csv")
 
 ispath(corrfitterpath) || mkpath(corrfitterpath)
 ispath(hdf5file_path) || mkpath(hdf5file_path) 

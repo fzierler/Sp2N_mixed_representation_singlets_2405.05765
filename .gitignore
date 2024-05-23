@@ -5,6 +5,4 @@
 *.tex
 *.code-workspace
 input/*
-!input/parameters
-!input/hdf5out
-!input/parameters/*.csv
+!input/hdf5data
