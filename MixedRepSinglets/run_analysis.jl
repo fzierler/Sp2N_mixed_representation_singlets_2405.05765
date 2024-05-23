@@ -1,4 +1,4 @@
-using Pkg; Pkg.activate(".")
+using Pkg; Pkg.activate("."); Pkg.instantiate();
 using MixedRepSinglets
 using HiRepParsing
 using DelimitedFiles
