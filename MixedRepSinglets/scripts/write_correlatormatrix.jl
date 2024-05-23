@@ -10,13 +10,19 @@ function main_write_correlator_matrices(Nsmear,hdf5path)
 
     Nensembles = length(ensembles)
 
+    println("\n\nConstruct and save correlation matrices:\n\n")
+
     for (i,ensemble) in enumerate(ensembles)
-        println("Process ensemble $ensemble ($i/$Nensembles)")
+        println("""
+            ###############################################
+              Process ensemble $ensemble ($i/$Nensembles) 
+            ###############################################
+            """)
         println("Set up singlet correlation matrix: γ5 (1/2)")
         correlation_matrix_singlet_g5        = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g5",disc_sign=+1,subtract_vev=false)
         println("Set up singlet correlation matrix: γ0γ5 (2/2)")
         correlation_matrix_singlet_g0g5      = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g0g5",disc_sign=+1,subtract_vev=false)
-        println("Set up non-singlet correlation matrix: γ0γ5 (2/2)")
+        println("Set up non-singlet correlation matrices")
         correlation_matrix_nonsinglet_FUN_g5 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g5")
         correlation_matrix_nonsinglet_FUN_g1 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g1")
         correlation_matrix_nonsinglet_FUN_g2 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g2")

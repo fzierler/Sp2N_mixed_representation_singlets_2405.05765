@@ -1,7 +1,10 @@
 function main_write_hdf5_logs(Nsmear,path,hdf5path,parameterfile;filter_channels=true)
     h5file = joinpath(hdf5path,"singlets_smeared.hdf5")
 
-    input = readdlm(parameterfile,';',skipstart=1)
+    input  = readdlm(parameterfile,';',skipstart=1)
+    Nfiles = 2(countlines(parameterfile) - 1)
+
+    current_file_number = 1
     for prm in eachrow(input)
 
         dir, patternDISC, patternCONN, nhits, Nmax, rep, name = prm
@@ -14,9 +17,11 @@ function main_write_hdf5_logs(Nsmear,path,hdf5path,parameterfile;filter_channels
         
         channels=["g5","g0g5","g1","g2","g3"]
 
-        @show fileCONN   
+        println("file ($current_file_number / $(Nfiles)): $fileCONN")   
         writehdf5_spectrum(fileCONN,h5file,typesCONN,h5group="$name/$rep/CONN";filter_channels,channels)
-        @show fileDISC   
+        current_file_number += 1
+        println("file ($current_file_number / $(Nfiles)): $fileDISC")   
         writehdf5_spectrum_disconnected(fileDISC,h5file,typesDISC,nhits,h5group="$name/$rep/DISC";filter_channels,channels)
+        current_file_number += 1
     end    
 end

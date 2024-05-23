@@ -63,9 +63,9 @@ function writehdf5_spectrum_disconnected(file,h5file,types::Array{T},nhits;sort=
     perm  = sort ? permutation_names(names) :  collect(eachindex(names))    
     setup && _write_lattice_setup(file,h5file;mixed_rep,h5group=h5group_setup,sort)
     setup && h5write(h5file,joinpath(h5group_setup,"sources"),nhits)
-    for type in types
+    @showprogress "Parse logfile for disconnected diagrams:" for type in types
         # read correlator data
-        c = parse_spectrum(file,type;disconnected=true,nhits)
+        c = parse_spectrum(file,type;disconnected=true,nhits,with_progress=false)
         # write matrices to file
         dataset = h5open(h5file,"cw")
         for Γ in keys(c)
@@ -81,8 +81,8 @@ function writehdf5_spectrum(file,h5file,types::Array{T};sort=false,h5group="",se
     perm  = sort ? permutation_names(names) :  collect(eachindex(names))
     setup && _write_lattice_setup(file,h5file;mixed_rep,h5group=h5group_setup,sort)
     # read correlator data
-    for type in types
-        c = parse_spectrum(file,type;disconnected=false)
+    @showprogress "Parse logfile for    connected diagrams:" for type in types
+        c = parse_spectrum(file,type;disconnected=false,with_progress=false)
         # write matrices to file
         dataset = h5open(h5file,"cw")
         for Γ in keys(c)

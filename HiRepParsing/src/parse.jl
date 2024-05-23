@@ -217,7 +217,7 @@ function correlators_logfile(file,type,key;kws...)
     corrs = parse_spectrum(file,type;filterkey=true,key_pattern=key,kws...)
     return reduce(hcat,getindex.(corrs,key))
 end
-function parse_spectrum(file,type;disconnected=false,masses=false,mass="",filterkey=false,key_pattern="",nhits=1)
+function parse_spectrum(file,type;disconnected=false,masses=false,mass="",filterkey=false,key_pattern="",nhits=1,with_progress=false)
     T = latticesize(file)[1]
     corr = zeros(T) # preallocate array for parsing of correlator
     dict = Dict{String,Vector{Float64}}()
@@ -225,9 +225,9 @@ function parse_spectrum(file,type;disconnected=false,masses=false,mass="",filter
     conf0 = 0
     src0  = 0
     # keep track of position in file for progress meter
-    p = Progress(countlines(file); dt=1, desc="Match $type: Progress:")
+    with_progress && (p = Progress(countlines(file); dt=1, desc="Match $type: Progress:"))
     for line in eachline(file)
-        next!(p)
+        with_progress && next!(p)
         if occursin(type,line)
             if masses
                 occursin("mass=$mass",line) || continue
