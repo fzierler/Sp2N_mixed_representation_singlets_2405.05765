@@ -8,18 +8,23 @@ function main_write_correlator_matrices(Nsmear,hdf5path)
     ensembles = keys(fid)
     close(fid)
 
-    for ensemble in ensembles
+    Nensembles = length(ensembles)
 
-        correlation_matrix_singlet_g5 = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g5",disc_sign=+1,subtract_vev=false)
-        correlation_matrix_singlet_g0g5 = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g0g5",disc_sign=+1,subtract_vev=false)
+    for (i,ensemble) in enumerate(ensembles)
+        println("Process ensemble $ensemble ($i/$Nensembles)")
+        println("Set up singlet correlation matrix: γ5 (1/2)")
+        correlation_matrix_singlet_g5        = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g5",disc_sign=+1,subtract_vev=false)
+        println("Set up singlet correlation matrix: γ0γ5 (2/2)")
+        correlation_matrix_singlet_g0g5      = _assemble_correlation_matrix_mixed(h5logfiles,ensemble,Nsmear;channel="g0g5",disc_sign=+1,subtract_vev=false)
+        println("Set up non-singlet correlation matrix: γ0γ5 (2/2)")
         correlation_matrix_nonsinglet_FUN_g5 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g5")
         correlation_matrix_nonsinglet_FUN_g1 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g1")
         correlation_matrix_nonsinglet_FUN_g2 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g2")
         correlation_matrix_nonsinglet_FUN_g3 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"FUN";channel="g3")
-        correlation_matrix_nonsinglet_AS_g5 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g5")
-        correlation_matrix_nonsinglet_AS_g1 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g1")
-        correlation_matrix_nonsinglet_AS_g2 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g2")
-        correlation_matrix_nonsinglet_AS_g3 = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g3")
+        correlation_matrix_nonsinglet_AS_g5  = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g5")
+        correlation_matrix_nonsinglet_AS_g1  = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g1")
+        correlation_matrix_nonsinglet_AS_g2  = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g2")
+        correlation_matrix_nonsinglet_AS_g3  = _assemble_correlation_matrix_rep_nonsinglet(h5logfiles,ensemble,Nsmear,"AS";channel="g3")
 
         correlation_matrix_nonsinglet_FUN_g1 = @. (correlation_matrix_nonsinglet_FUN_g1 + correlation_matrix_nonsinglet_FUN_g2 + correlation_matrix_nonsinglet_FUN_g3)/3
         correlation_matrix_nonsinglet_AS_g1  = @. (correlation_matrix_nonsinglet_AS_g1  + correlation_matrix_nonsinglet_AS_g2  + correlation_matrix_nonsinglet_AS_g3 )/3
@@ -31,7 +36,6 @@ function main_write_correlator_matrices(Nsmear,hdf5path)
             # ignore everything but correlator
             entries = filter(!contains("TRIPLET"),keys(fileFUN))
             entries = filter(!contains("quarkmasses"),entries)
-            @show entries
             for entry in entries
                 h5write(outfile,joinpath(ensemble,entry),read(fileFUN,entry))
             end
