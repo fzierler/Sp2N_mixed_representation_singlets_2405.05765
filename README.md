@@ -12,7 +12,7 @@ This repository contains the code used to prepare the plots and results included
     - `output/tables/`
 
 - If you want to start from the raw logs:
-    - Download `logfiles_compressed.zip` from Zenodo
+    - Download `logfiles_compressed.zip` and `decompress.sh` from Zenodo
     - Decompress the raw log files by executing `decompress.sh` (Note, that just unzipping the archive is not sufficient since the raw log files are zstd-compressed)
     - Place the decompressed directory in `input`
     - Remove the file `input/hdf5data/singlets_smeared.hdf5` if it exists
