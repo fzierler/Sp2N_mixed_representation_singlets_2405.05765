@@ -23,6 +23,7 @@ Nsmear = collect(0:10:80)
 
 corrfitterpath = joinpath(output_path,"fitresults")
 tablepath      = joinpath(output_path,"tables")
+tex_tablepath  = joinpath(output_path,"tex_tables")
 plotpath       = joinpath(output_path,"plots")
 
 parameterfile      = joinpath(paramter_path,"parameters_smeared.csv")
@@ -50,6 +51,6 @@ end
 run_corrfitter(parameters_fitting,hdf5file_path;resample=true)
 plot_all_masses_with_fitting(parameters_gevp,parameters_fitting,corrfitterpath,hdf5file_path,plotpath;only_singlet=false)
 write_all_tables(Nsmear,parameters_gevp,parameters_fitting,corrfitterpath,tablepath)
-write_tex_tables(tablepath,tablepath)
+write_tex_tables(tablepath,tex_tablepath)
 plot_spectrum(tablepath,plotpath,gradient_flow_results)
 plot_and_write_mixing_angles(parameters_gevp,hdf5file_path,tablepath,tablepath,plotpath)

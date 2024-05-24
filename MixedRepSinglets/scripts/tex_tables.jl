@@ -30,6 +30,7 @@ function write_tex_tables(tablepath,tex_tablepath)
     results = readdlm(joinpath(tablepath,"table_results.csv"),';')
     fitting = readdlm(joinpath(tablepath,"table_fitting.csv"),';')
     gevp    = readdlm(joinpath(tablepath,"table_gevp.csv"),';')
+    ispath(tex_tablepath) || mkpath(tex_tablepath)
 
     write_tex_table(joinpath(tex_tablepath,"table_results.tex"),results)
     write_tex_table(joinpath(tex_tablepath,"table_fitting.tex"),fitting)
