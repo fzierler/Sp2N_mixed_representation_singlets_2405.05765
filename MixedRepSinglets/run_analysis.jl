@@ -53,4 +53,4 @@ plot_all_masses_with_fitting(parameters_gevp,parameters_fitting,corrfitterpath,h
 write_all_tables(Nsmear,parameters_gevp,parameters_fitting,corrfitterpath,tablepath)
 write_tex_tables(tablepath,tex_tablepath)
 plot_spectrum(tablepath,plotpath,gradient_flow_results)
-plot_and_write_mixing_angles(parameters_gevp,hdf5file_path,tablepath,tablepath,plotpath)
+plot_and_write_mixing_angles(parameters_gevp,hdf5file_path,tablepath,tex_tablepath,plotpath)
