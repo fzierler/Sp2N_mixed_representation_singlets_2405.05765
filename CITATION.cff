@@ -1,0 +1,47 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  On the mixing between flavor singlets in lattice gauge
+  theories coupled to matter fields in multiple
+  representations - data release
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Ed
+    family-names: Bennett
+    orcid: 'https://orcid.org/0000-0002-1678-6701'
+  - given-names: Niccolò
+    family-names: Forzano
+    orcid: 'https://orcid.org/0000-0003-0985-8858'
+  - given-names: Deog Ki
+    family-names: Hong
+    orcid: 'https://orcid.org/0000-0002-3923-4184'
+  - family-names: Hsiao
+    given-names: Ho
+    orcid: 'https://orcid.org/0000-0002-8522-5190'
+  - given-names: Jong-Wan
+    family-names: Lee
+    orcid: 'https://orcid.org/0000-0002-4616-2422'
+  - given-names: C.-J. David
+    family-names: Lin
+    orcid: 'https://orcid.org/0000-0003-3743-0840'
+  - given-names: Biagio
+    family-names: Lucini
+    orcid: 'https://orcid.org/0000-0001-8974-8266'
+  - given-names: Maurizio
+    family-names: Piai
+    orcid: 'https://orcid.org/0000-0002-2251-0111'
+  - family-names: Vadacchino
+    given-names: Davide
+    orcid: 'https://orcid.org/0000-0002-5783-5602'
+  - given-names: Fabian
+    family-names: Zierler
+    orcid: 'https://orcid.org/0000-0002-8670-4054'
+identifiers:
+  - type: url
+    value: 'https://arxiv.org/pdf/2405.05765v1'
+    description: ArXiv identifier
