@@ -31,7 +31,7 @@ The code in this repository has only been tested on the specific dataset provide
 The plots are made using [Plots.jl](https://zenodo.org/record/7994271) via the [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl) backend which requires a LaTeX installation with the PGFPlots package.
 
 ## Requirements
-- Python 3.8 (see `requirements.txt` for the required packages)
+- Python 3.9 (see `requirements.txt` for the required packages)
 - julia 1.10
 - LaTeX (including PGFPlots)
 - zstd (for decompressing the raw log files)
