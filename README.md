@@ -31,8 +31,26 @@ The code in this repository has only been tested on the specific dataset provide
 The plots are made using [Plots.jl](https://zenodo.org/record/7994271) via the [PGFPlotsX](https://github.com/KristofferC/PGFPlotsX.jl) backend which requires a LaTeX installation with the PGFPlots package.
 
 ## Requirements
+
 - Python 3.10 (see `requirements.txt` for the required packages)
 - julia 1.10
 - LaTeX (including PGFPlots)
 - zstd (for decompressing the raw log files)
 
+### Installing requirements using Conda
+
+All requirements apart from LaTeX may be installed from Conda by running
+
+    conda env create -f environment.yml
+
+On macOS on Apple silicon processors,
+it may be necessary to have Rosetta enabled,
+and to specify to use x86-64 packages,
+by running
+
+    conda env create --platform osx-64 -f environment.yml
+
+Before running the analysis,
+the environment should be activated using
+
+    conda activate Sp2N_mixed_representation_singlets_2405.05765
