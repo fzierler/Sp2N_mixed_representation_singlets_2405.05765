@@ -140,14 +140,22 @@ def run_corrfitter_singlets(prmfile,hdf5path,outdir,resample=False):
     os.path.exists(outfile2HR)  and os.remove(outfile2HR)
     
     hdf5file = os.path.join(hdf5path,"singlets_smeared_eigenvalues.hdf5")
+    print("Start fitting correlators:")
 
+    file = open(prmfile)
+    numlines = len(file.readlines())
+    
     with open(prmfile) as csvfile:
         reader = csv.DictReader(csvfile,delimiter=';')
+        i = 1
         for row in reader:
             ensemble, channel = row['ensemble'], row['channel']
             tmin1, tmin2 = int(row['tmin1']), int(row['tmin2'])
             tmax1, tmax2 = int(row['tmax1']), int(int(row['tmax2']))
             tp, Nmax = int(row['tp']), int(row['Nmax'])
+            
+            print("Ensemble:",ensemble,", channel:",channel,"(",i,"/",numlines,")")
+            i += 1
 
             fit_eigenvalues(outfile,outfileHR,hdf5file,tmin1,tmin2,tmax1,tmax2,tp,Nmax,ensemble,channel)
             if resample:
