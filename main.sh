@@ -1,2 +1,2 @@
 cd MixedRepSinglets
-julia main.jl
+julia main.jl --threads=auto
