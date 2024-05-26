@@ -22,6 +22,11 @@ This repository contains the code used to prepare the plots and results included
 
 In order to respect the dataset size limit on Zenodo, only the relevant channels (γ5, γ0γ5, γi) are written to the hdf5 file. In order to write all channels to the hdf5 file, set the variable 'write_all_channels_to_hdf5' in the file `MixedRepSinglets/main.jl` to 'true'.
 
+## Run times (rough estimate)
+
+- Running from the hdf5 files can take up to 30 minutes on a laptop
+- Running from the raw log files ca take up to 3 hours on a laptop
+
 ## Warning
 
 The code in this repository has only been tested on the specific dataset provided here. It is not intended to be easily generalizable to arbitrary datasets. The analysis parameters are hard-coded in the directory `input/parameters/`.
