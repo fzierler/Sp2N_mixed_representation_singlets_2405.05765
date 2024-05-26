@@ -12,17 +12,10 @@ function write_all_tables(Nsmear,paramterfile_gevp,paramterfile_corrfitter,corrf
     io_fitting = open(joinpath(tablepath,"table_fitting.csv"),"w")
     io_gevp    = open(joinpath(tablepath,"table_gevp.csv"),"w")
 
-    # a - eta' notation
-    #write(io_resultsMR,L"Label;$\beta$;$N_t$;$N_l$;$am_0^{\rm f}$;$am_0^{\rm as}$;$am_a$;$\Delta am_a$;$am_{\eta'}$;$\Delta am_{\eta'};$am_{\pi}^{(f)}$;$\Delta am_{\pi}^{(f)};$am_{\pi}^{(as)}$;$\Delta am_{\pi}^{(as)}$;$am_{\rho}^{(f)}$;$\Delta am_{\rho}^{(f)};$am_{\rho}^{(as)}$;$\Delta am_{\rho}^{(as)}$","\n")
-    #write(io_results,L"Label;$\beta$;$N_t$;$N_l$;$am_0^{\rm f}$;$am_0^{\rm as}$;$am_a$;$am_{\eta'}$;$am_{\rm PS}$;$am_{\rm ps}$;$am_{\rm V}$;$am_{\rm v}$","\n")
-    #write(io_fitting,L"	Label;$I_{a}$;$I_{\eta'}$;$I_{\rm{PS}}$;$I_{\rm{ps}}$;$I_{\rm{V}}$;$I_{\rm{v}}$;$N_{\rm exp}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$\\&&&&&&&&$ a$&$\eta'$&${\rm PS}$&${\rm ps}$&$ {\rm V}$&$ {\rm v}$","\n")
-    #write(io_gevp,L"Label;$t_0$;$N^{\rm smear}_{a,\eta'}$;$N^{\rm smear}_{\pi(f)}$;$N^{\rm smear}_{\pi(as)}$;$N^{\rm smear}_{\rho(f)}$;$N^{\rm smear}_{\rho(as)}$","\n")
-
     # eta'_l - eta'_h notation
-    write(io_resultsMR,L"Label;$\beta$;$N_t$;$N_l$;$am_0^{\rm f}$;$am_0^{\rm as}$;$am_{\eta^{\prime}_l}$;$\Delta am_{\eta^{\prime}_l}$;$am_{\eta^{\prime}_h}$;$\Delta am_{\eta^{\prime}_h};$am_{\pi}^{(f)}$;$\Delta am_{\pi}^{(f)};$am_{\pi}^{(as)}$;$\Delta am_{\pi}^{(as)}$;$am_{\rho}^{(f)}$;$\Delta am_{\rho}^{(f)};$am_{\rho}^{(as)}$;$\Delta am_{\rho}^{(as)}$","\n")
-    write(io_results,L"Label;$\beta$;$N_t$;$N_l$;$am_0^{\rm f}$;$am_0^{\rm as}$;$am_{\eta^{\prime}_l}$;$am_{\eta^{\prime}_h}$;$am_{\rm PS}$;$am_{\rm ps}$;$am_{\rm V}$;$am_{\rm v}$","\n")
-    write(io_fitting,L"	Label;$I_{\eta^{\prime}_l}$;$I_{\eta^{\prime}_h}$;$I_{\rm{PS}}$;$I_{\rm{ps}}$;$I_{\rm{V}}$;$I_{\rm{v}}$;$N_{\rm exp}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$;$\chi^2 / N_{\rm d.o.f.}$\\&&&&&&&&$ \eta^{\prime}_l$&$\eta^{\prime}_h$&${\rm PS}$&${\rm ps}$&$ {\rm V}$&$ {\rm v}$","\n")
-    write(io_gevp,L"Label;$t_0$;$N^{\rm smear}_{\eta^{\prime}_l,\eta^{\prime}_h}$;$N^{\rm smear}_{\pi(f)}$;$N^{\rm smear}_{\pi(as)}$;$N^{\rm smear}_{\rho(f)}$;$N^{\rm smear}_{\rho(as)}$","\n")
+    write(io_resultsMR,L"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;Delta_mass_etaprime_l;mass_etaprime_h;Delta_mass_etaprime_h;mass_PS;Delta_mass_PS;mass_ps;Delta_mass_ps;mass_V;Delta_mass_V;Delta_mass_ps;mass_v;Delta_mass_v","\n")
+    write(io_results,L"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;mass_etaprime_h;mass_PS;mass_ps;mass_V;mass_v","\n")
+    write(io_fitting,L"label;I_etaprime_l;I_etaprime_h;I_PS;I_ps;I_V;I_v;N_exp;chi2dof_etaprime_l;chi2dof_etaprime_h;chi2dof_PS;chi2dof_ps;chi2dof_V;chi2dof_v","\n")
 
     #check that the number of datasets match
     @assert first(size(parameters)) == first(size(parameters_fitting)) == first(size(corrfitter_results)) 
@@ -94,10 +87,10 @@ function write_all_tables(Nsmear,paramterfile_gevp,paramterfile_corrfitter,corrf
         write(io_resultsMR,"$ensemble;$β;$T;$L;$mf;$mas;$ma;$Δma;$mη;$Δmη;$mπF;$ΔmπF;$mπA;$ΔmπA;$mρF;$ΔmρF;$mρA;$ΔmρA\n")
         write(io_results,"$ensemble;$β;$T;$L;$mf;$mas;$maHR;$mηHR;$mπFHR;$mπAHR;$mρFHR;$mρAHR\n")
         write(io_fitting,"$ensemble;($t0a,$t1a);($t0η,$t1η);($t0πF,$t1πF);($t0πA,$t1πA);($t0ρF,$t1ρF);($t0ρA,$t1ρA);$Nexp;$χ2dofπF;$χ2dofπA;$χ2dofρF;$χ2dofρA;$χ2dofa;$χ2dofη\n")
-        write(io_gevp,"$ensemble;$t0_gevp;$ops_η;$ops_πF;$ops_ρF;$ops_πA;$ops_ρA\n")
+        #write(io_gevp,"$ensemble;$t0_gevp;$ops_η;$ops_πF;$ops_ρF;$ops_πA;$ops_ρA\n")
     end
     close(io_resultsMR)
     close(io_results)
     close(io_fitting)
-    close(io_gevp)
+    #close(io_gevp)
 end
