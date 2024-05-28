@@ -110,8 +110,8 @@ function plot_and_write_mixing_angles(parameters_gevp,hdf5path,tablepath,tex_tab
     io_mixing = open(file_mixing,"w")
     io_mixing_MR = open(file_mixing_MR,"w")
 
-    write(io_mixing_MR,L"Label;$\beta$;$N_t$;$N_l$;$\phi$;$\Delta \phi$","\n")
-    write(io_mixing,L"Label;$~~~~\beta~~~~$;$~~~~N_t~~~~$;$~~~~N_s~~~~$;$~~~~\phi/{}^{\circ}~~~~$","\n")
+    write(io_mixing_MR,"Label;beta;N_t;N_l;phi;Delta_phi","\n")
+    write(io_mixing   ,"Label;beta;N_t;N_l;phi","\n")
     plotpath = joinpath(plotpath,"mixing_angle")
 
     parameters = readdlm(parameters_gevp,';';skipstart=1)
@@ -150,6 +150,8 @@ function plot_and_write_mixing_angles(parameters_gevp,hdf5path,tablepath,tex_tab
     close(io_mixing_MR)
 
     # convert table into a tex compatible formatting
-    mixing = readdlm(joinpath(tablepath,"table_mixing_angle.csv"),';')
+    mixing = readdlm(joinpath(tablepath,"table_mixing_angle.csv"),';',skipstart=1)
+    tex_header = L"Label;$~~~~\beta~~~~$;$~~~~N_t~~~~$;$~~~~N_s~~~~$;$~~~~\phi/{}^{\circ}~~~~$"
+    write_tex_table(joinpath(tex_tablepath,"table_results.tex"),mixing,extra_header=tex_header)
     write_tex_table(joinpath(tex_tablepath,"table_mixing.tex"),mixing)
 end

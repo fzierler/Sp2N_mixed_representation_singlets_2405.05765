@@ -10,12 +10,11 @@ function write_all_tables(Nsmear,paramterfile_gevp,paramterfile_corrfitter,corrf
     io_resultsMR = open(joinpath(tablepath,"table_results_MR.csv"),"w")
     io_results = open(joinpath(tablepath,"table_results.csv"),"w")
     io_fitting = open(joinpath(tablepath,"table_fitting.csv"),"w")
-    io_gevp    = open(joinpath(tablepath,"table_gevp.csv"),"w")
 
     # eta'_l - eta'_h notation
-    write(io_resultsMR,L"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;Delta_mass_etaprime_l;mass_etaprime_h;Delta_mass_etaprime_h;mass_PS;Delta_mass_PS;mass_ps;Delta_mass_ps;mass_V;Delta_mass_V;Delta_mass_ps;mass_v;Delta_mass_v","\n")
-    write(io_results,L"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;mass_etaprime_h;mass_PS;mass_ps;mass_V;mass_v","\n")
-    write(io_fitting,L"label;I_etaprime_l;I_etaprime_h;I_PS;I_ps;I_V;I_v;N_exp;chi2dof_etaprime_l;chi2dof_etaprime_h;chi2dof_PS;chi2dof_ps;chi2dof_V;chi2dof_v","\n")
+    write(io_resultsMR,"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;Delta_mass_etaprime_l;mass_etaprime_h;Delta_mass_etaprime_h;mass_PS;Delta_mass_PS;mass_ps;Delta_mass_ps;mass_V;Delta_mass_V;Delta_mass_ps;mass_v;Delta_mass_v","\n")
+    write(io_results,"label;beta;Nt;Nl;m0f;m0as;mass_etaprime_l;mass_etaprime_h;mass_PS;mass_ps;mass_V;mass_v","\n")
+    write(io_fitting,"label;I_etaprime_l;I_etaprime_h;I_PS;I_ps;I_V;I_v;N_exp;chi2dof_etaprime_l;chi2dof_etaprime_h;chi2dof_PS;chi2dof_ps;chi2dof_V;chi2dof_v","\n")
 
     #check that the number of datasets match
     @assert first(size(parameters)) == first(size(parameters_fitting)) == first(size(corrfitter_results)) 
