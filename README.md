@@ -24,8 +24,8 @@ In order to respect the dataset size limit on Zenodo, only the relevant channels
 
 ## Run times (rough estimate)
 
-- Running from the hdf5 files can take up to 30 minutes on a laptop
-- Running from the raw log files ca take up to 3 hours on a laptop
+- Running from the hdf5 files takes around 20 minutes on a laptop with an i7-1355U CPU
+- Running from the raw log files takes around 90 minutes on a laptop with an i7-1355U CPU
 
 ## Warning
 
@@ -59,3 +59,7 @@ Before running the analysis,
 the environment should be activated using
 
     conda activate Sp2N_mixed_representation_singlets_2405.05765
+
+### Reproducibility and reusability
+
+The correlator fitting of this analysis makes use of `scipy.optimize.curve_fit`; as such, results are not bitwise reproducible between different CPU architectures.
