@@ -3,7 +3,7 @@ This repository contains the code used to prepare the plots and results included
 
 ## Instructions: Running the analysis
 - Install required dependencies (see below)
-- Download the hdf5-file `singlets_smeared.hdf5` from the [Zenodo data release](10.5281/zenodo.11370542) and place it in `input/hdf5data`
+- Download the hdf5-file `singlets_smeared.hdf5` from the [Zenodo data release](https://zenodo.org/badge/DOI/10.5281/zenodo.11370542) and place it in `input/hdf5data`
 - Download the archive `parameters.zip`, decompress it, and place the directory in `input/`
 - Download the file `gradient_flow_results.csv`, and place it in the directory `input/gradient_flow_results/`
 - Run the analysis using `bash main.sh` within the top level directory
