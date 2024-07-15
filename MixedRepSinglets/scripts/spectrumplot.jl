@@ -21,8 +21,8 @@ function plot_spectrum(tablepath,plotdir,gradient_flow_results)
     for row in eachrow(data)
         ensemble, channel, T, L, mf, mas, ma, Δma, mη, Δmη, mπF, ΔmπF, mπA, ΔmπA, mρF, ΔmρF, mρA, ΔmρA = row
 
-        ensemble_id = findfirst(isequal(ensemble), gf[:,1])
-        w, Δw = gf[ensemble_id,7], gf[ensemble_id,8]
+        ensemble_id = findall(isequal(Int(T)), Int.(gf[:,2])) ∩ findall(isequal(Int(L)), Int.(gf[:,3])) ∩ findall(isapprox(Float64(mf)), Float64.(gf[:,4]))
+        w, Δw = gf[only(ensemble_id),6], gf[only(ensemble_id),7]
 
         Δratio(x,y,Δx,Δy) = sqrt((Δx/y)^2 + (x*Δy/y^2)^2) 
         Δproduct(x,y,Δx,Δy) = sqrt((Δx*y)^2 + (x*Δy)^2)

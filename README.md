@@ -5,7 +5,7 @@ This repository contains the code used to prepare the plots and results included
 - Install required dependencies (see below)
 - Download the hdf5-file `singlets_smeared.hdf5` from the [Zenodo data release](https://zenodo.org/badge/DOI/10.5281/zenodo.11370542) and place it in `input/hdf5data`
 - Download the archive `parameters.zip`, decompress it, and place the directory in `input/`
-- Download the file `gradient_flow_results.csv`, and place it in the directory `input/gradient_flow_results/`
+- Download the file `output_topology/table1_machine_readable.csv` from the [Zenodo data release of 2405.01388](https://zenodo.org/records/11048346), and place it in the directory `input/gradient_flow_results/`
 - Run the analysis using `bash main.sh` within the top level directory
 - The figures and tables can then be found in
     - `output/figures/`
@@ -17,7 +17,7 @@ This repository contains the code used to prepare the plots and results included
     - Place the decompressed directory in `input`
     - Remove the file `input/hdf5data/singlets_smeared.hdf5` if it exists
     - Download the archive `parameters.zip`, decompress it, and place the directory in `input/`
-    - Download the file `gradient_flow_results.csv`, and place it in the directory `input/gradient_flow_results/`
+    - Download the file `output_topology/table1_machine_readable.csv`, and place it in the directory `input/gradient_flow_results/`
     - Run the analysis using `bash main.sh` within the top level directory
 
 In order to respect the dataset size limit on Zenodo, only the relevant channels (γ5, γ0γ5, γi) are written to the hdf5 file. In order to write all channels to the hdf5 file, set the variable 'write_all_channels_to_hdf5' in the file `MixedRepSinglets/main.jl` to 'true'.
