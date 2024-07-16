@@ -152,6 +152,5 @@ function plot_and_write_mixing_angles(parameters_gevp,hdf5path,tablepath,tex_tab
     # convert table into a tex compatible formatting
     mixing = readdlm(joinpath(tablepath,"table_mixing_angle.csv"),';',skipstart=1)
     tex_header = L"Label;$~~~~\beta~~~~$;$~~~~N_t~~~~$;$~~~~N_s~~~~$;$~~~~\phi/{}^{\circ}~~~~$"
-    write_tex_table(joinpath(tex_tablepath,"table_results.tex"),mixing,extra_header=tex_header)
-    write_tex_table(joinpath(tex_tablepath,"table_mixing.tex"),mixing)
+    write_tex_table(joinpath(tex_tablepath,"table_mixing.tex"),mixing,extra_header=tex_header)
 end
