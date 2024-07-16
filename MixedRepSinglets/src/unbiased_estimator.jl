@@ -78,8 +78,8 @@ function unbiased_estimator_threaded(discon1,discon2;rescale=1,subtract_vev=fals
     
     if subtract_vev
         @inbounds for conf in 1:nconf, h in 1:nhits1, t in 1:T
-            discon1[h,t,conf] = discon1[h,t,conf] - vev1[conf,t]
-            discon2[h,t,conf] = discon2[h,t,conf] - vev2[conf,t]
+            discon1[h,t,conf] = discon1[h,t,conf] - vev1[t]
+            discon2[h,t,conf] = discon2[h,t,conf] - vev2[t]
         end
     end
     @batch for conf in 1:nconf
@@ -106,8 +106,8 @@ function unbiased_estimator(discon;rescale=1,subtract_vev=false)
     hitsd2 = div(nhits,2)
     if subtract_vev
         vev = vev_contribution(discon)
-        @inbounds for h in 1:nhits1, t in 1:T, conf in 1:nconf
-            discon[conf,h,t] = discon[conf,h,t] - vev[conf,t]
+        @inbounds for h in 1:nhits, t in 1:T, conf in 1:nconf
+            discon[conf,h,t] = discon[conf,h,t] - vev[t]
         end
     end
     for t in 1:T
@@ -126,7 +126,7 @@ function unbiased_estimator(discon;rescale=1,subtract_vev=false)
     return timavg
 end
 function vev_contribution(discon)
-    vev = dropdims(mean(discon,dims=2),dims=2) 
+    vev = dropdims(mean(discon,dims=(1,2)),dims=(1,2)) 
     return vev
 end
 function rescale_connected!(corr,L)
