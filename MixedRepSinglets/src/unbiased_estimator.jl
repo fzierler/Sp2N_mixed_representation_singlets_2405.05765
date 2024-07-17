@@ -34,10 +34,10 @@ function unbiased_estimator(discon1,discon2;rescale=1,subtract_vev=false)
         vev1 = vev_contribution(discon1)
         vev2 = vev_contribution(discon2)
         @inbounds for h in 1:nhits1, t in 1:T, conf in 1:nconf
-            discon1[conf,h,t] = discon1[conf,h,t] - vev1[conf,t]
+            discon1[conf,h,t] = discon1[conf,h,t] - vev1[t]
         end
         @inbounds for h in 1:nhits1, t in 1:T, conf in 1:nconf
-            discon2[conf,h,t] = discon2[conf,h,t] - vev2[conf,t]
+            discon2[conf,h,t] = discon2[conf,h,t] - vev2[t]
         end
     end
     for t in 1:T
