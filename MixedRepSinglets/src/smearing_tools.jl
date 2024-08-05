@@ -57,12 +57,13 @@ function _assemble_correlation_matrix_mixed(h5file,ensemble,Nsmear;channel="g5",
                 discAS_N1N2  = unbiased_estimator_threaded(discAS[i] ,discAS[j] ;rescale=rescale_disc,subtract_vev) 
             end
             discFUNAS_N1N2   = unbiased_estimator_threaded(discFUN[i],discAS[j] ;rescale=rescale_disc,subtract_vev) 
+            discASFUN_N1N2   = unbiased_estimator_threaded(discFUN[j],discAS[i] ;rescale=rescale_disc,subtract_vev)
             block_diag_FUN[i,j,:,:] = Nf_fun*disc_sign*discFUN_N1N2
             block_diag_FUN[j,i,:,:] = Nf_fun*disc_sign*discFUN_N1N2
             block_diag_AS[i,j,:,:]  = Nf_as *disc_sign*discAS_N1N2
             block_diag_AS[j,i,:,:]  = Nf_as *disc_sign*discAS_N1N2
             block_mixed[i,j,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discFUNAS_N1N2
-            block_mixed[j,i,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discFUNAS_N1N2
+            block_mixed[j,i,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discASFUN_N1N2 
             next!(p) # update progress meter
         end
     end
