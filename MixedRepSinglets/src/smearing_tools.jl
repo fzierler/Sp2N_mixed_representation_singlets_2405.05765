@@ -39,14 +39,9 @@ function _assemble_correlation_matrix_mixed(h5file,ensemble,Nsmear;channel="g5",
     Nf_fun = 2
     Nf_as  = 3
     
-    # create block matrices of the full correlation matrix
-    block_diag_FUN = zeros((Nops÷2,Nops÷2,N,T))
-    block_diag_AS  = zeros((Nops÷2,Nops÷2,N,T))
-    block_mixed    = zeros((Nops÷2,Nops÷2,N,T))
-    
+    correlation_matrix = zeros((2S,2S,N,T))   
     p = Progress( (S^2 + S) ÷ 2 )
     # assemble block matrices for disconnected pieces
-    # ( use that the two loops in the disconnected diagra can be interchanged to save computing time) 
     for i in eachindex(Nsmear)
         for j in 1:i
             if i == j
@@ -58,29 +53,18 @@ function _assemble_correlation_matrix_mixed(h5file,ensemble,Nsmear;channel="g5",
             end
             discFUNAS_N1N2   = unbiased_estimator_threaded(discFUN[i],discAS[j] ;rescale=rescale_disc,subtract_vev) 
             discASFUN_N1N2   = unbiased_estimator_threaded(discFUN[j],discAS[i] ;rescale=rescale_disc,subtract_vev)
-            block_diag_FUN[i,j,:,:] = Nf_fun*disc_sign*discFUN_N1N2
-            block_diag_FUN[j,i,:,:] = Nf_fun*disc_sign*discFUN_N1N2
-            block_diag_AS[i,j,:,:]  = Nf_as *disc_sign*discAS_N1N2
-            block_diag_AS[j,i,:,:]  = Nf_as *disc_sign*discAS_N1N2
-            block_mixed[i,j,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discFUNAS_N1N2
-            block_mixed[j,i,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discASFUN_N1N2 
+
+            correlation_matrix[i,j,:,:] = connFUN[i,j] - Nf_fun*disc_sign*discFUN_N1N2
+            correlation_matrix[j,i,:,:] = connFUN[j,i] - Nf_fun*disc_sign*discFUN_N1N2
+            correlation_matrix[i+S,j+S,:,:]  = connAS[i,j] - Nf_as *disc_sign*discAS_N1N2
+            correlation_matrix[j+S,i+S,:,:]  = connAS[j,i] - Nf_as *disc_sign*discAS_N1N2
+            correlation_matrix[j+S,i,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discFUNAS_N1N2
+            correlation_matrix[i+S,j,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discASFUN_N1N2
+            correlation_matrix[i,j+S,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discFUNAS_N1N2
+            correlation_matrix[j,i+S,:,:] = sqrt(Nf_fun*Nf_as)*disc_sign*discASFUN_N1N2
             next!(p) # update progress meter
         end
     end
-
-    # add connected pieces
-    for i in eachindex(Nsmear)
-        for j in eachindex(Nsmear)
-            block_diag_FUN[i,j,:,:] = connFUN[i,j] - block_diag_FUN[i,j,:,:] 
-            block_diag_AS[i,j,:,:]  = connAS[i,j]  - block_diag_AS[i,j,:,:]  
-        end
-    end
-
-    # assemble matrix blocks into full correlation matric
-    block_row_1 = vcat(block_diag_FUN,block_mixed)
-    block_row_2 = vcat(block_mixed,block_diag_AS)
-    correlation_matrix = hcat(block_row_1,block_row_2)
-
     return correlation_matrix
 end
 function _assemble_correlation_matrix_rep(h5file,ensemble,Nsmear,rep;channel="g5",disc_sign=+1,subtract_vev=false,Nf)
