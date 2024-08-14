@@ -52,7 +52,7 @@ function run_corrfitter(parameters_fitting,hdf5file_path,hdf5file,corrfitterpath
     end
 end
 
-run_corrfitter(parameters_fitting,hdf5file_path,"singlets_smeared_eigenvalues.hdf5"     ,corrfitterpath        ;resample=false)
+run_corrfitter(parameters_fitting,hdf5file_path,"singlets_smeared_eigenvalues.hdf5"     ,corrfitterpath        ;resample=true)
 run_corrfitter(parameters_fitting_t0p1,hdf5file_path,"singlets_smeared_eigenvalues_t0p1.hdf5",corrfitterpath*"_t0p1";resample=false)
 run_corrfitter(parameters_fitting_t0p2,hdf5file_path,"singlets_smeared_eigenvalues_t0p2.hdf5",corrfitterpath*"_t0p2";resample=false)
 run_corrfitter(parameters_fitting_t0p3,hdf5file_path,"singlets_smeared_eigenvalues_t0p3.hdf5",corrfitterpath*"_t0p3";resample=false)
