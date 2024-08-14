@@ -128,7 +128,8 @@ def fit_eigenvalues_resample(outfile,outfileHR,hdf5file,tmin1,tmin2,tmax1,tmax2,
     out.close()
     outHR.close()
 
-def run_corrfitter_singlets(prmfile,hdf5path,outdir,resample=False):
+    hdf5file = os.path.join(hdf5path,"singlets_smeared_eigenvalues.hdf5")
+def run_corrfitter_singlets(prmfile,hdf5path,hdf5file,outdir,resample=False):
 
     outfile    = os.path.join(outdir,"corrfitter_results.csv")
     outfileHR  = os.path.join(outdir,"corrfitter_results_HR.csv")
@@ -139,7 +140,6 @@ def run_corrfitter_singlets(prmfile,hdf5path,outdir,resample=False):
     os.path.exists(outfile2)    and os.remove(outfile2)
     os.path.exists(outfile2HR)  and os.remove(outfile2HR)
     
-    hdf5file = os.path.join(hdf5path,"singlets_smeared_eigenvalues.hdf5")
     print("Start fitting correlators:")
 
     file = open(prmfile)
@@ -165,16 +165,18 @@ PLOT=False
 PRINT=False
 
 args = sys.argv
-if len(args) < 4:
+if len(args) < 5:
     print("Missing parameter and/or hdf5 file")
 elif len(args)>=5:
     prmfile  = args[1]
     hdf5path = args[2] 
-    outdir   = args[3] 
-    resample = args[4] == 'True'
-    run_corrfitter_singlets(prmfile,hdf5path,outdir,resample)
-elif len(args)==4:
+    hdf5file = args[3] 
+    outdir   = args[4] 
+    resample = args[5] == 'True'
+    run_corrfitter_singlets(prmfile,hdf5path,hdf5file,outdir,resample)
+elif len(args)==5:
     prmfile  = args[1]
     hdf5path = args[2] 
-    outdir   = args[3] 
-    run_corrfitter_singlets(prmfile,hdf5path,outdir,resample=False)
+    hdf5file = args[3] 
+    outdir   = args[4] 
+    run_corrfitter_singlets(prmfile,hdf5path,hdf5file,outdir,resample=False)

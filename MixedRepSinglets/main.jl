@@ -12,7 +12,7 @@ gradientflowdir= normpath("../input/gradient_flow_results/")
 input_h5file   = joinpath(hdf5file_path,"singlets_smeared.hdf5")
 
 start_from_logs    = !isfile(input_h5file)
-write_correlator   = true
+write_correlator   = false
 write_gevp_results = true
 
 if !ispath(paramter_path) || isempty(paramter_path)
