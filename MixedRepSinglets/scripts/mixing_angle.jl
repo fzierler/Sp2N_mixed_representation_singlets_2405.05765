@@ -143,7 +143,13 @@ function plot_and_write_mixing_angles(parameters_gevp,hdf5path,tablepath,tex_tab
     end
 
     # convert table into a tex compatible formatting
-    mixing = readdlm(joinpath(tablepath,"table_mixing_angle.csv"),';',skipstart=1)
+    mixing_phi   = readdlm(joinpath(tablepath,"table_mixing_angle.csv"),';',skipstart=1)
+    mixing_phi_l = readdlm(joinpath(tablepath,"table_mixing_angle_phi_l.csv"),';',skipstart=1)[:,5]
+    mixing_phi_h = readdlm(joinpath(tablepath,"table_mixing_angle_phi_h.csv"),';',skipstart=1)[:,5]
+    mixing_comparison = hcat(mixing_phi,mixing_phi_l,mixing_phi_h)
+
     tex_header = L"Label;$~~~~\beta~~~~$;$~~~~N_t~~~~$;$~~~~N_s~~~~$;$~~~~\phi/{}^{\circ}~~~~$"
-    write_tex_table(joinpath(tex_tablepath,"table_mixing.tex"),mixing,extra_header=tex_header)
+    tex_header_comparison = L"Label;$~~~~\beta~~~~$;$~~~~N_t~~~~$;$~~~~N_s~~~~$;$~~~~\phi/{}^{\circ}~~~~$;$~~~~\phi_l^{\prime}/{}^{\circ}~~~~$;$~~~~\phi_h^{\prime}/{}^{\circ}~~~~$"
+    write_tex_table(joinpath(tex_tablepath,"table_mixing.tex"),mixing_phi,extra_header=tex_header)
+    write_tex_table(joinpath(tex_tablepath,"table_mixing_comparison.tex"),mixing_comparison,extra_header=tex_header_comparison)
 end
