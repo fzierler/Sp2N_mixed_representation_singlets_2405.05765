@@ -38,3 +38,19 @@ function write_tex_tables(tablepath,tex_tablepath)
     write_tex_table(joinpath(tex_tablepath,"table_results.tex"),results,extra_header=header_results)
     write_tex_table(joinpath(tex_tablepath,"table_fitting.tex"),fitting,extra_header=header_fitting)
 end
+function write_tex_table_t0_comparison(tablepath,tex_tablepath)
+    header_results_l = L"   Label & $\beta$ & $N_t$ & $N_l$ & $am_0^{\rm f}$ & $am_0^{\rm as}$ & $am_{\eta^{\prime}_l} (t_0=1)$ & $am_{\eta^{\prime}_l} (t_0=2)$ & $am_{\eta^{\prime}_l} (t_0=3)$ & $am_{\eta^{\prime}_l} (t_0=4)$ & $am_{\eta^{\prime}_l} (t_0=5)$   \\\\"
+    header_results_h = L"   Label & $\beta$ & $N_t$ & $N_l$ & $am_0^{\rm f}$ & $am_0^{\rm as}$ & $am_{\eta^{\prime}_h} (t_0=1)$ & $am_{\eta^{\prime}_h} (t_0=2)$ & $am_{\eta^{\prime}_h} (t_0=3)$ & $am_{\eta^{\prime}_h} (t_0=4)$ & $am_{\eta^{\prime}_h} (t_0=5)$   \\\\"
+    
+    results = readdlm(joinpath(tablepath,"table_results.csv"),';',skipstart=1)
+    results_t0p1 = readdlm(joinpath(tablepath*"_t0p1","table_results.csv"),';',skipstart=1)
+    results_t0p2 = readdlm(joinpath(tablepath*"_t0p2","table_results.csv"),';',skipstart=1)
+    results_t0p3 = readdlm(joinpath(tablepath*"_t0p3","table_results.csv"),';',skipstart=1)
+    results_t0p4 = readdlm(joinpath(tablepath*"_t0p4","table_results.csv"),';',skipstart=1)
+    
+    comparison_l = hcat(results[:,1:7],results_t0p1[:,7],results_t0p2[:,7],results_t0p3[:,7],results_t0p4[:,7])
+    comparison_h = hcat(results[:,1:6],results[:,8],results_t0p1[:,8],results_t0p2[:,8],results_t0p3[:,8],results_t0p4[:,8])
+    
+    write_tex_table(joinpath(tex_tablepath,"table_results_t0_comparison_l.tex"),comparison_l,extra_header=header_results_l)
+    write_tex_table(joinpath(tex_tablepath,"table_results_t0_comparison_h.tex"),comparison_h,extra_header=header_results_h)
+end
